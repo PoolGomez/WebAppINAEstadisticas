@@ -136,10 +136,6 @@ export default function Home({correoUsuario}) {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h4 style={{ flex: 1 }}>Bienvenido, {correoUsuario}</h4>
         <Button variant="warning" style={{ alignSelf: 'flex-end' }} onClick={()=>signOut(auth)}>Cerrar Sesion</Button>
-
-        {/* <Link to="/login">
-          <Button>Iniciar Sesion</Button>
-        </Link> */}
       </div>
       
       <hr/>
