@@ -67,9 +67,9 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
   return (
    <Container>
     <Button variant='primary' onClick={handleShow}>Agregar Servicio</Button>
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Agregar Registro</Modal.Title>
+          <Modal.Title>Agregar Servicio</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={addServicio}>
@@ -88,8 +88,8 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
                   required
                 />
               <Form.Label>Congregacion</Form.Label>
-              <Form.Select aria-label="Default select example" id="formCongregacion">
-                <option value="Ninguno">Seleccione</option>
+              <Form.Select aria-label="Default select example" id="formCongregacion" required>
+                <option value="">Seleccione</option>
                 <option value="Canto Grande 9">Canto Grande 9</option>
                 <option value="Huanta">Huanta</option>
               </Form.Select>
@@ -113,10 +113,11 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
                 step="0.01"
                 placeholder="ingrese ofrenda"
                 id="formOfrenda"
+                required
               />
               <Form.Label>Oficiante</Form.Label>
-              <Form.Select aria-label="Default select example" id="formOficiante">
-                <option value="Ninguno">Seleccione</option>
+              <Form.Select aria-label="Default select example" id="formOficiante" required>
+                <option value="">Seleccione</option>
                 <option value="Dc. Gonzales Olvider">Dc. Gonzales Olvider</option>
                 <option value="Ev. Enrique Jhonny">Ev. Enrique Jhonny</option>
                 <option value="Evd. De la Cruz Jesus">Evd. De la Cruz Jesus</option>
@@ -131,17 +132,17 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
               <Form.Label>Asistencia Escuela Dominical</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Asistencia Escuela Dominical"
+                placeholder="Ingrese cantidad de niños"
                 id="formEscuelaDominical"
+                required
               />
               <Form.Label>Observacion</Form.Label>
               <Form.Control as="textarea" rows={3} id="formObservacion" />
-            <Button variant="secondary" onClick={handleClose}>
+            {/* <Button variant="secondary" onClick={handleClose}>
             Cerrar
-          </Button>
-          <Button type='submit'>
-            Guardar
-          </Button>
+          </Button> */}
+          <hr/>
+          <Button type='submit'>Guardar</Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>

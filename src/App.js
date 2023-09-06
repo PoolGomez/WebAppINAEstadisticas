@@ -1,12 +1,18 @@
 import React,{useState,useEffect} from "react";
 import Home from "./components/Home";
 import Logueo from "./components/Logueo";
+import Servicios from "./components/Servicios";
 
 import firebaseApp from "./credenciales";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Estadisticas from "./components/Estadisticas";
+
 const auth = getAuth(firebaseApp);
 
 function App() {
+
   const [usuarioGlobal, setUsuarioGlobal] = useState(null);
   onAuthStateChanged(auth,(usuarioFirebase)=>{
     if(usuarioFirebase){
@@ -17,10 +23,27 @@ function App() {
       setUsuarioGlobal(null);
     }
   })
+
   return (
-  <>
-  {usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo />}
-  </>
+    <Router>
+      <Routes>
+        <Route 
+          exact path="/" 
+          element={usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo />} />
+        <Route path="/login" element={<Logueo />} />
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/estadisticas" element={<Estadisticas />} />
+      </Routes>
+    </Router>
+
+  // <>
+  // <Home 
+  // //correoUsuario={usuarioGlobal.email} 
+  // />
+  // </>
+  // // <>
+  // // {usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo />}
+  // // </>
   );
 }
 
