@@ -3,6 +3,8 @@ import firebaseApp from '../credenciales';
 import { getAuth,signOut } from 'firebase/auth';
 import {getFirestore, doc, getDoc,setDoc, collection, onSnapshot, query, where,orderBy} from "firebase/firestore";
 import {Container,Button} from "react-bootstrap";
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import AgregarServicio from './AgregarServicio';
 import ListarServicios from './ListarServicios';
@@ -33,13 +35,29 @@ export default function Home({correoUsuario}) {
     const unsubscribe = onSnapshot(q, (querySnapshot)=>{
       const datos=[];
       querySnapshot.forEach((doc)=>{
+
+
+      // Supongamos que tienes una fecha en formato "yyyy-mm-dd"
+      //const fechaOriginal = "2023-09-07";
+      // Convierte la fecha en un objeto Date
+      const fechaObjeto = new Date(doc.data().fecha);
+      // Formatea la fecha en "DD/MM/YYYY"
+      const fechaFormateada = format(fechaObjeto, 'dd/MM/yyyy');
+
+
         datos.push(
           {
             id:doc.id, 
-            fecha: doc.data().fecha,
+            boleta:doc.data().boleta,
+            // fecha: doc.data().fecha,
+            fecha: fechaFormateada,
             congregacion:doc.data().congregacion,
+            miembros:doc.data().miembros,
+            invitados:doc.data().invitados,
             asistencia: doc.data().asistencia,
             ofrenda: doc.data().ofrenda,
+            oficiante: doc.data().oficiante,
+            escuelaDominical: doc.data().escuelaDominical,
             observacion: doc.data().observacion,
             mes:doc.data().mes,
           })
@@ -139,11 +157,17 @@ export default function Home({correoUsuario}) {
       </div>
       
       <hr/>
-      <AgregarServicio 
-        arrayServicios={arrayServicios} 
-        setArrayServicios={setArrayServicios}
-        correoUsuario={correoUsuario}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <AgregarServicio 
+          arrayServicios={arrayServicios} 
+          setArrayServicios={setArrayServicios}
+          correoUsuario={correoUsuario}
+        />
+        <Link to="/estadisticas">
+          <Button>Estadisticas</Button>
+        </Link>
+      </div>
+      <hr/>
       { arrayServicios ? 
       <ListarServicios
         arrayServicios={arrayServicios} 

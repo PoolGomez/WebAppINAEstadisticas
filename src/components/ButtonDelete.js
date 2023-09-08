@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Importa las clases CSS de Bootstrap Icons
 
 export default function ButtonDelete({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +15,7 @@ export default function ButtonDelete({ onDelete }) {
   return (
     <>
       <Button variant="danger" onClick={handleShowModal}>
-        Eliminar
+      <i class="bi bi-trash"></i>
       </Button>
 
       <Modal show={showModal} onHide={handleCloseModal}>

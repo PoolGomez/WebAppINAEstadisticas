@@ -26,9 +26,9 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
       const observacion = e.target.formObservacion.value;
 
       const fechaDate = new Date(fecha+"T00:00:00");
-      console.log("fechaDate: ",fechaDate);
+      //console.log("fechaDate: ",fechaDate);
       const mes = fechaDate.toLocaleDateString('es-ES', { month: 'long' });
-      console.log("nombremes: ",mes);
+      //console.log("nombremes: ",mes);
       const docRef = await addDoc(collection(firestore,"servicios"),{
         boleta: boleta,
         fecha: fecha,
@@ -67,6 +67,7 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
   return (
    <Container>
     <Button variant='primary' onClick={handleShow}>Agregar Servicio</Button>
+
     <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Agregar Servicio</Modal.Title>
@@ -150,7 +151,7 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
         </Modal.Footer>
     </Modal>
 
-    <hr />
+    {/* <hr /> */}
    </Container>
   )
 }

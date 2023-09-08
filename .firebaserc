@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "app-adming-pg-2"
-  }
+    "default": "inawebestadisticas",
+    "ina web estadisticas produccion": "inawebestadisticas",
+    "web estadisticas": "inawebestadisticas"
+  },
+  "targets": {},
+  "etags": {}
 }
