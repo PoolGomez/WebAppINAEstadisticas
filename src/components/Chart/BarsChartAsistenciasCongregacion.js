@@ -51,7 +51,7 @@ export default function BarsChartAsistenciasCongregacion({arrayFechas,arrayAsist
             labels: arrayFechas,
             datasets:[
                 {
-                    label:"Canto Grande 9",
+                    label:"Canto Grande",
                     data: arrayAsistenciasCtoGrande,
                     tension: 0.5,
                     fill: true,

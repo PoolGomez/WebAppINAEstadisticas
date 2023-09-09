@@ -14,9 +14,14 @@ export default function ButtonDelete({ onDelete }) {
 
   return (
     <>
-      <Button variant="danger" onClick={handleShowModal}>
-      <i class="bi bi-trash"></i>
-      </Button>
+      {/* <Button variant="danger" onClick={handleShowModal}>
+      <i className="bi bi-trash"></i>
+      </Button> */}
+      
+      <Button variant="danger"><i  className="bi bi-trash" onClick={handleShowModal}></i></Button>
+          
+          
+      
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>

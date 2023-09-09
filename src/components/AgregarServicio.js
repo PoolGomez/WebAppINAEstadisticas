@@ -28,6 +28,9 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
       const fechaDate = new Date(fecha+"T00:00:00");
       //console.log("fechaDate: ",fechaDate);
       const mes = fechaDate.toLocaleDateString('es-ES', { month: 'long' });
+      // console.log(fecha);
+      // console.log(fechaDate);
+      // console.log(fechaDate.toLocaleDateString('es-ES'));
       //console.log("nombremes: ",mes);
       const docRef = await addDoc(collection(firestore,"servicios"),{
         boleta: boleta,
@@ -44,11 +47,11 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
       });
       
       const querySnapshot = await getDocs(collection(firestore,"servicios"));
-      const arrayServicios=[];
-      querySnapshot.forEach((doc)=>{
-        arrayServicios.push(doc.data());
-      })
-      setArrayServicios(arrayServicios);
+      // const arrayServicios=[];
+      // querySnapshot.forEach((doc)=>{
+      //   arrayServicios.push(doc.data());
+      // })
+      //setArrayServicios(arrayServicios);
 
       e.target.formNroBoleta.value="";
       e.target.formFecha.value="";
@@ -91,7 +94,7 @@ export default function AgregarServicio({arrayServicios,correoUsuario, setArrayS
               <Form.Label>Congregacion</Form.Label>
               <Form.Select aria-label="Default select example" id="formCongregacion" required>
                 <option value="">Seleccione</option>
-                <option value="Canto Grande 9">Canto Grande 9</option>
+                <option value="Canto Grande">Canto Grande</option>
                 <option value="Huanta">Huanta</option>
               </Form.Select>
               <Form.Label>Miembros(Adultos + Niños)</Form.Label>

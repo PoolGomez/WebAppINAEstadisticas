@@ -46,7 +46,7 @@ export default function BarsChartOfrendasCongregacion({arrayFechas,arrayOfrendas
             labels: arrayFechas,
             datasets:[
                 {
-                    label:"Canto Grande 9",
+                    label:"Canto Grande",
                     data: arrayOfrendasCtoGrande,
                     tension: 0.5,
                     fill: true,

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import firebaseApp from '../credenciales';
 import { getAuth,signOut } from 'firebase/auth';
 import {getFirestore, doc, getDoc,setDoc, collection, onSnapshot, query, where,orderBy} from "firebase/firestore";
-import {Container,Button} from "react-bootstrap";
+import {Container,Button, Stack, InputGroup,Form} from "react-bootstrap";
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,8 @@ const firestore = getFirestore(firebaseApp);
 export default function Home({correoUsuario}) {
   const[arrayServicios,setArrayServicios] =useState(null);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [tableData, setTableData] = useState([]);
   //datos generales acumulados por meses
   // const[arrayFechas, setArrayFechas] =useState([]);
   // const[arrayAsistencias, setArrayAsistencias] =useState([]);
@@ -30,27 +32,18 @@ export default function Home({correoUsuario}) {
   
   async function buscarServicios(){
     //const querySnapshot = await getDocs(collection(firestore,"servicios"));
-    const q =query(collection(firestore,"servicios"), where("fecha","!=",""),orderBy('fecha'));
+    const q =query(collection(firestore,"servicios"), where("fecha","!=",""),orderBy('fecha','desc'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot)=>{
       const datos=[];
       querySnapshot.forEach((doc)=>{
 
-
-      // Supongamos que tienes una fecha en formato "yyyy-mm-dd"
-      //const fechaOriginal = "2023-09-07";
-      // Convierte la fecha en un objeto Date
-      const fechaObjeto = new Date(doc.data().fecha);
-      // Formatea la fecha en "DD/MM/YYYY"
-      const fechaFormateada = format(fechaObjeto, 'dd/MM/yyyy');
-
-
         datos.push(
           {
             id:doc.id, 
             boleta:doc.data().boleta,
-            // fecha: doc.data().fecha,
-            fecha: fechaFormateada,
+            fecha: doc.data().fecha,
+            fechaFormat: format(new Date(doc.data().fecha+"T00:00:00"),'dd/MM/yyyy'),
             congregacion:doc.data().congregacion,
             miembros:doc.data().miembros,
             invitados:doc.data().invitados,
@@ -138,6 +131,25 @@ export default function Home({correoUsuario}) {
   //   setArrayOfrendasCtoGrande(aOfrendasCantoGrande);
   //   setArrayOfrendasHuanta(aOfrendasHuanta);
   // }
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredData = arrayServicios  && arrayServicios.filter((record) =>
+    //filtra por un solo campo
+    //record.congregacion.toLowerCase().includes(searchTerm.toLowerCase())
+
+    //filtra por campos especificos
+    record.congregacion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    record.boleta.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    record.fechaFormat.toLowerCase().includes(searchTerm.toLowerCase())
+
+    //filtrar por todos los campos
+    // Object.values(record).some((value)=>
+    //   value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    // )
+      
+  );
 
   useEffect(()=>{
     async function fetchServicios(){
@@ -151,6 +163,7 @@ export default function Home({correoUsuario}) {
 
   return (
     <Container style={{padding:"15px"}}>
+      <Stack>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h4 style={{ flex: 1 }}>Bienvenido, {correoUsuario}</h4>
         <Button variant="warning" style={{ alignSelf: 'flex-end' }} onClick={()=>signOut(auth)}>Cerrar Sesion</Button>
@@ -168,9 +181,22 @@ export default function Home({correoUsuario}) {
         </Link>
       </div>
       <hr/>
+      {/* <input value={searchTerm} onChange={handleSearch} placeholder='buscar...' ></input> */}
+      <InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon1"><i className="bi bi-search"></i></InputGroup.Text>
+        <Form.Control
+          placeholder="Buscar..."
+          aria-label="Search"
+          aria-describedby="basic-addon1"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </InputGroup>
+      
       { arrayServicios ? 
       <ListarServicios
-        arrayServicios={arrayServicios} 
+        arrayServicios={filteredData}
+        // arrayServicios={arrayServicios} 
         setArrayServicios={setArrayServicios}
         correoUsuario={correoUsuario}
       /> :
@@ -178,6 +204,8 @@ export default function Home({correoUsuario}) {
       }
       
       
+      
+      </Stack>
     </Container>
   )
 }

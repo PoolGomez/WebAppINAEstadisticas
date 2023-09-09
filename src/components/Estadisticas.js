@@ -109,9 +109,9 @@ export default function Estadisticas() {
           };
         }
         
-        DatosPorMes[mes].actogrande +=  fila.congregacion ==="Canto Grande 9" ? parseInt(fila.asistencia) : 0;
+        DatosPorMes[mes].actogrande +=  fila.congregacion ==="Canto Grande" ? parseInt(fila.asistencia) : 0;
         DatosPorMes[mes].ahuanta += fila.congregacion ==="Huanta" ? parseInt(fila.asistencia) : 0;
-        DatosPorMes[mes].octogrande+= fila.congregacion ==="Canto Grande 9" ? parseFloat(fila.ofrenda):0;
+        DatosPorMes[mes].octogrande+= fila.congregacion ==="Canto Grande" ? parseFloat(fila.ofrenda):0;
         DatosPorMes[mes].ohuanta+= fila.congregacion ==="Huanta"? parseFloat(fila.ofrenda):0;
     })
     const datosFinales = Object.values(DatosPorMes);
