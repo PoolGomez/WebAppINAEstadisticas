@@ -16,7 +16,6 @@ export default function Home({correoUsuario}) {
   const[arrayServicios,setArrayServicios] =useState(null);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [tableData, setTableData] = useState([]);
   //datos generales acumulados por meses
   // const[arrayFechas, setArrayFechas] =useState([]);
   // const[arrayAsistencias, setArrayAsistencias] =useState([]);
@@ -153,7 +152,7 @@ export default function Home({correoUsuario}) {
 
   useEffect(()=>{
     async function fetchServicios(){
-      const servicios = await buscarServicios();
+      await buscarServicios();
     };
     fetchServicios();
   },[])

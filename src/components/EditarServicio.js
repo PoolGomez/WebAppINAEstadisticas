@@ -35,11 +35,7 @@ export default function EditarServicio({servicio,onDelete}) {
             [name]:value,
         });
     };
-    // Manejar la actualización de los datos (puedes usar esta función para enviar los datos actualizados al servidor)
-    const handleActualizar = () => {
-        // Aquí puedes enviar los datos actualizados al servidor o realizar otras acciones necesarias
-        console.log("Datos actualizados:", datosEditables);
-    };
+    
     async function editServicio(e){
         e.preventDefault();
         
@@ -128,15 +124,14 @@ export default function EditarServicio({servicio,onDelete}) {
                 </div>
             {/* </div>
             <div className='d-flex justify-content-between align-items-center'> */}
-                <div className='ms-5'>
+                <div className='ms-3'>
                   <p className='fw-bold mb-1'>{servicio.congregacion}</p>
-                  <p className='text-muted mb-0'><i className="bi bi-people"> {servicio.asistencia}</i>  <i className="bi bi-currency-dollar"> {servicio.ofrenda}</i></p>
+                  <p className='d-flex text-muted mb-0'><i className="bi bi-people"> {servicio.asistencia}</i>  <i className="bi bi-currency-dollar"> {servicio.ofrenda}</i></p>
                 </div>
             </div>
             <div className='d-flex justify-content-between align-items-end'>
               
               <div className='ms-3'>
-
                 <ButtonDelete onDelete={()=>eliminarServicio(servicio.id)}/>
               </div>
             </div>

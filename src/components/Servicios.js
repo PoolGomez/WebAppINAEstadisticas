@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import firebaseApp from '../credenciales';
-import { getAuth,signOut } from 'firebase/auth';
-import {getFirestore, doc, getDoc,setDoc, collection, onSnapshot, query, where,orderBy} from "firebase/firestore";
-import {Container,Button} from "react-bootstrap";
+import { getAuth } from 'firebase/auth';
+import {getFirestore,collection, onSnapshot, query, where,orderBy} from "firebase/firestore";
 
 import AgregarServicio from './AgregarServicio';
 import ListarServicios from './ListarServicios';
@@ -125,7 +124,7 @@ export default function Servicios({correoUsuario}) {
 
   useEffect(()=>{
     async function fetchServicios(){
-      const servicios = await buscarServicios();
+      await buscarServicios();
     };
     fetchServicios();
   },[])
